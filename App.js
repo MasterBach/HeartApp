@@ -95,9 +95,17 @@ class Apple extends Component {
 // Constructor for Text input
   constructor(props) {
     super(props);
-    this.state = { text: '' };
+    this.state = { text: '', reavealedtext: '' };
   }
 
+  changeState(){
+    this.setState({
+      reavealedtext: this.state.text
+      })
+
+
+
+  }
 
    heart_pressed() {
      Alert.alert(
@@ -123,35 +131,20 @@ class Apple extends Component {
           style={styles.heart}/>
         </TouchableOpacity>
         <ScrollView>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
-          <Text style={{fontSize:30}}>Added text goes here</Text>
+          <Text style={{fontSize:30}}>{this.state.reavealedtext}</Text>
         </ScrollView>
 
 
 
         <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-        onChangeText={(text) => this.setState({text})}
+        onChangeText={(text) => this.setState({text: text})}
         value={this.state.text}
         placeholder="Type here!"
       />
 
         <Button
-  onPress={()=>this.learn_pressed()}
+  onPress={()=>this.changeState()}
   title="Add Text to Scrollable List"
   color="#000000"
 />
@@ -186,7 +179,8 @@ class Banana extends Component {
           source={pic}
           style={styles.heart}/>
         </TouchableOpacity>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
+
+        
           <Button
     onPress={()=>this.learn_pressed()}
     title="Fetch"
