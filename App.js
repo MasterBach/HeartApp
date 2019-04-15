@@ -102,12 +102,9 @@ class Apple extends Component {
     this.setState({
       reavealedtext: this.state.text
       })
-
-
-
   }
 
-   heart_pressed() {
+   apple_pressed() {
      Alert.alert(
   'You have touched the Apple',
   '',
@@ -116,7 +113,8 @@ class Apple extends Component {
   ],
   {cancelable: false},
 );
-   }
+}
+
   render() {
     let pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/0/07/Honeycrisp-Apple.jpg'
@@ -124,7 +122,7 @@ class Apple extends Component {
     return (
       <View style={styles.container}>
         <TouchableOpacity
-        onPress={()=>this.heart_pressed()}
+        onPress={()=>this.apple_pressed()}
         >
           <Image
           source={pic}
@@ -133,8 +131,6 @@ class Apple extends Component {
         <ScrollView>
           <Text style={{fontSize:30}}>{this.state.reavealedtext}</Text>
         </ScrollView>
-
-
 
         <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -149,14 +145,14 @@ class Apple extends Component {
   color="#000000"
 />
 
-      </View>
+</View>
     );
   }
 }
 
 // default working Banana
 class Banana extends Component {
-   heart_pressed() {
+   banana_pressed() {
      Alert.alert(
   'You have touched the Banana',
   '',
@@ -166,28 +162,69 @@ class Banana extends Component {
   {cancelable: false},
 );
    }
+
+   // Constructor for Text input fetched from URL
+   constructor(props) {
+       super(props);
+       this.state = {
+          revealedtext: ''
+        };
+     }
+
+     async changeStateFetch(){
+       const baseURL = 'https://facebook.github.io/react-native/movies.json';
+       try {
+         let promise = await fetch(baseURL)
+         let json = await promise.json()
+         let inception = json.movies[3]
+         console.log(json)
+         console.log(inception)
+         this.setState({
+          revealedtext: inception.title
+
+        })
+        console.log(this.state.revealedtext)
+       } catch (error){
+         console.log(error)
+       }
+     }
+
+     clearFetch(){
+       this.setState({
+        revealedtext: ''
+      })
+     }
+
+
+
   render() {
+
+
+    // picture
     let pic = {
       uri: 'https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg'
     };
+
+
     return (
+
       <View style={styles.container}>
+      <Text style={{fontSize:30}}>{this.state.revealedtext}</Text>
         <TouchableOpacity
-        onPress={()=>this.heart_pressed()}
+        onPress={()=>this.banana_pressed()}
         >
           <Image
           source={pic}
           style={styles.heart}/>
         </TouchableOpacity>
 
-        
           <Button
-    onPress={()=>this.learn_pressed()}
+    onPress={()=>this.changeStateFetch()}
     title="Fetch"
     color="#000000"
   />
   <Button
-onPress={()=>this.learn_pressed()}
+onPress={()=>this.clearFetch()}
 title="Clear"
 color="#000000"
 />
